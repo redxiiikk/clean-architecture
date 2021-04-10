@@ -1,6 +1,6 @@
-package hk.qingke.learn.usermanager.adapter.convert;
+package hk.qingke.learn.usermanager.adapter.api.convert;
 
-import hk.qingke.learn.usermanager.adapter.rest.vo.request.CreateUserRequest;
+import hk.qingke.learn.usermanager.adapter.api.vo.request.CreateUserRequest;
 import hk.qingke.learn.usermanager.domain.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

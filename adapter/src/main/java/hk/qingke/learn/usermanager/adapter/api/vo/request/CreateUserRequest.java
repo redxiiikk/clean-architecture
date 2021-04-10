@@ -1,4 +1,4 @@
-package hk.qingke.learn.usermanager.adapter.rest.vo.request;
+package hk.qingke.learn.usermanager.adapter.api.vo.request;
 
 
 import lombok.Data;

@@ -1,7 +1,7 @@
-package hk.qingke.learn.usermanager.adapter.rest;
+package hk.qingke.learn.usermanager.adapter.api.rest;
 
-import hk.qingke.learn.usermanager.adapter.convert.UserMapperConvert;
-import hk.qingke.learn.usermanager.adapter.rest.vo.request.CreateUserRequest;
+import hk.qingke.learn.usermanager.adapter.api.convert.UserMapperConvert;
+import hk.qingke.learn.usermanager.adapter.api.vo.request.CreateUserRequest;
 import hk.qingke.learn.usermanager.service.UserCreateService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
