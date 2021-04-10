@@ -11,15 +11,15 @@ import java.util.List;
 class UserEntityTest {
     @Test
     void create_user_entity_success() {
-        UserEntity userEntity = new UserEntity("Tom", "1@Aa1234567", "test@test.hk");
-        Assertions.assertNotNull(userEntity);
+        Assertions.assertDoesNotThrow(() -> {
+            new UserEntity("Tom", "1@Aa1234567", "test@test.hk");
+        });
     }
 
     @Test
     void create_user_entity_fail_given_blank_username() {
-        Assertions.assertThrows(
-                UsernameIsBlankException.class,
-                () -> new UserEntity("", "1@Aa1234567", "test@test.hk"));
+        UserEntity userEntity = new UserEntity();
+        Assertions.assertThrows(UsernameIsBlankException.class, () -> userEntity.setUsername(null));
     }
 
     @Test
@@ -34,9 +34,8 @@ class UserEntityTest {
         );
 
         for (String illegalPassword : illegalPasswords) {
-            Assertions.assertThrows(
-                    PasswordIllegalException.class,
-                    () -> new UserEntity("Tom", illegalPassword, "test@test.hk"));
+            UserEntity userEntity = new UserEntity();
+            Assertions.assertThrows(PasswordIllegalException.class, () -> userEntity.setPassword(illegalPassword));
         }
     }
 }

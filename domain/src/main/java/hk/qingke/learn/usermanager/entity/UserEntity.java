@@ -4,13 +4,17 @@ import hk.qingke.learn.usermanager.entity.exception.PasswordIllegalException;
 import hk.qingke.learn.usermanager.entity.exception.PasswordIsBlankException;
 import hk.qingke.learn.usermanager.entity.exception.UsernameIsBlankException;
 import hk.qingke.learn.usermanager.entity.exception.UsernameThanMaxLengthException;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
     public static final int MAX_NAME_LENGTH = 20;
 
