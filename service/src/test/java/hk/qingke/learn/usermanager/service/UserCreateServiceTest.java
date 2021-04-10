@@ -1,6 +1,7 @@
 package hk.qingke.learn.usermanager.service;
 
 import hk.qingke.learn.usermanager.domain.UserEntity;
+import hk.qingke.learn.usermanager.service.exception.UserEmailDuplicationException;
 import hk.qingke.learn.usermanager.service.exception.UsernameDuplicateException;
 import hk.qingke.learn.usermanager.service.gateway.repository.UserRepository;
 import org.apache.commons.lang3.RandomUtils;
@@ -40,9 +41,19 @@ class UserCreateServiceTest {
 
     @Test
     void create_user_entity_fail_given_duplicate_name() {
-        Mockito.when(userRepository.queryByUsername(Mockito.any(String.class))).thenReturn(Optional.of(new UserEntity()));
+        Mockito.when(this.userRepository.queryByUsername(Mockito.any(String.class))).thenReturn(Optional.of(new UserEntity()));
 
         Assertions.assertThrows(UsernameDuplicateException.class, () -> {
+            UserEntity userEntity = new UserEntity("tom", "1@aB12345678", "test@test.hk");
+            this.userCreateService.create(userEntity);
+        });
+    }
+
+    @Test
+    void create_user_entity_fail_given_duplication_email() {
+        Mockito.when(this.userRepository.queryByEmail(Mockito.any(String.class))).thenReturn(Optional.of(new UserEntity()));
+
+        Assertions.assertThrows(UserEmailDuplicationException.class, () -> {
             UserEntity userEntity = new UserEntity("tom", "1@aB12345678", "test@test.hk");
             this.userCreateService.create(userEntity);
         });

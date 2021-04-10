@@ -8,4 +8,6 @@ public interface UserRepository {
     UserEntity save(UserEntity userEntity);
 
     Optional<UserEntity> queryByUsername(String username);
+
+    Optional<UserEntity> queryByEmail(String email);
 }
