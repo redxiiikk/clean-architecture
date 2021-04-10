@@ -1,9 +1,9 @@
-package hk.qingke.learn.usermanager.entity;
+package hk.qingke.learn.usermanager.domain;
 
-import hk.qingke.learn.usermanager.entity.exception.PasswordIllegalException;
-import hk.qingke.learn.usermanager.entity.exception.PasswordIsBlankException;
-import hk.qingke.learn.usermanager.entity.exception.UsernameIsBlankException;
-import hk.qingke.learn.usermanager.entity.exception.UsernameThanMaxLengthException;
+import hk.qingke.learn.usermanager.domain.exception.PasswordIllegalException;
+import hk.qingke.learn.usermanager.domain.exception.PasswordIsBlankException;
+import hk.qingke.learn.usermanager.domain.exception.UsernameIsBlankException;
+import hk.qingke.learn.usermanager.domain.exception.UsernameThanMaxLengthException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

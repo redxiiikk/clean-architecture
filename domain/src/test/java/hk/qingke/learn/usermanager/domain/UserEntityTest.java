@@ -1,7 +1,7 @@
-package hk.qingke.learn.usermanager.entity;
+package hk.qingke.learn.usermanager.domain;
 
-import hk.qingke.learn.usermanager.entity.exception.PasswordIllegalException;
-import hk.qingke.learn.usermanager.entity.exception.UsernameIsBlankException;
+import hk.qingke.learn.usermanager.domain.exception.PasswordIllegalException;
+import hk.qingke.learn.usermanager.domain.exception.UsernameIsBlankException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
