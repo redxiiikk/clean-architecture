@@ -4,6 +4,7 @@ import hk.qingke.learn.usermanager.adapter.api.convert.UserMapperConvert;
 import hk.qingke.learn.usermanager.adapter.api.vo.request.CreateUserRequest;
 import hk.qingke.learn.usermanager.service.UserCreateService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void register(CreateUserRequest request) {
+    public void register(@RequestBody CreateUserRequest request) {
         this.userCreateService.create(UserMapperConvert.INSTANCE.requestToEntity(request));
     }
 }
