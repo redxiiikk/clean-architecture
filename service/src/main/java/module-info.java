@@ -1,5 +1,5 @@
 open module hk.qingke.learn.usermanager.service {
-    requires hk.qingke.learn.usermanager.entity;
+    requires hk.qingke.learn.usermanager.domain;
 
     requires org.apache.commons.lang3;
 

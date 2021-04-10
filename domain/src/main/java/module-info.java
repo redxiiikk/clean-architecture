@@ -1,4 +1,4 @@
-open module hk.qingke.learn.usermanager.entity {
+open module hk.qingke.learn.usermanager.domain {
     requires static lombok;
     requires org.apache.commons.lang3;
 
