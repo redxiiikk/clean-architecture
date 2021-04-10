@@ -6,8 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface UserMapperConvert {
-    UserMapperConvert INSTANCE = Mappers.getMapper( UserMapperConvert.class );
+public interface UserVoToEntityConvert {
+    UserVoToEntityConvert INSTANCE = Mappers.getMapper(UserVoToEntityConvert.class);
     
     UserEntity requestToEntity(CreateUserRequest request);
 }
