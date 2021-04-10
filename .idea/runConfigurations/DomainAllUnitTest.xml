@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="DomainUnitTest" type="JUnit" factoryName="JUnit">
+  <configuration default="false" name="DomainAllUnitTest" type="JUnit" factoryName="JUnit">
     <module name="domain" />
     <extension name="coverage">
       <pattern>
