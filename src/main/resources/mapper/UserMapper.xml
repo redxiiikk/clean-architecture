@@ -3,20 +3,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="hk.qingke.learn.usermanager.infrastructure.mapper.UserMapper">
     <insert id="create" parameterType="userDo">
-        <selectKey keyColumn="id" keyProperty="id" resultType="java.lang.Long">
+        <selectKey keyColumn="id" keyProperty="id" order="AFTER" resultType="java.lang.Long">
             select last_insert_id()
         </selectKey>
-        insert into t_user (username, password, email) value (#{userDo.username}, #{userDo.password}, #{userDo.email})
+        insert into t_user (username, password, email) values (#{userDo.username}, #{userDo.password}, #{userDo.email})
     </insert>
     <update id="updateById" parameterType="userDo">
         update t_user
         <set>
-            <if test="userDo.username != null">username=#{userDo.username}</if>
-            <if test="userDo.password != null">password=#{userDo.password}</if>
+            <if test="userDo.username != null">username=#{userDo.username},</if>
+            <if test="userDo.password != null">password=#{userDo.password},</if>
             <if test="userDo.email != null">email=#{userDo.email}</if>
         </set>
         <where>
-            id=#{userDo.email}
+            id=#{userDo.id}
         </where>
     </update>
     <select id="queryByUsername" resultType="userDo">
