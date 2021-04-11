@@ -1,4 +1,4 @@
-package hk.qingke.learn.usermanager.config;
+package hk.qingke.learn.usermanager.config.service;
 
 import hk.qingke.learn.usermanager.service.UserCreateService;
 import hk.qingke.learn.usermanager.service.gateway.repository.UserRepository;

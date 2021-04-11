@@ -6,12 +6,10 @@ import hk.qingke.learn.usermanager.infrastructure.convert.UserEntityToDoConvert;
 import hk.qingke.learn.usermanager.infrastructure.dos.UserDo;
 import hk.qingke.learn.usermanager.infrastructure.mapper.UserMapper;
 import hk.qingke.learn.usermanager.service.gateway.repository.UserRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Objects;
 import java.util.Optional;
 
-@Repository
 public class UserRepositoryImpl implements UserRepository {
     private final UserMapper userMapper;
 
