@@ -6,6 +6,7 @@ import hk.qingke.learn.usermanager.domain.UserEntity;
 import hk.qingke.learn.usermanager.service.UserCreateService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,6 +56,7 @@ class UserControllerTest {
     void create_user() throws Exception {
         CreateUserRequest requestBody = new CreateUserRequest("Tom", "1@aB2345678", "test@test.hk");
 
+        long generateUserId = RandomUtils.nextLong();
         Mockito.doAnswer(invocation -> {
             UserEntity argument = invocation.getArgument(0, UserEntity.class);
 
@@ -63,7 +65,7 @@ class UserControllerTest {
             Assertions.assertEquals(requestBody.getUsername(), argument.getUsername());
             Assertions.assertEquals(requestBody.getEmail(), argument.getEmail());
 
-            argument.setId(RandomUtils.nextLong());
+            argument.setId(generateUserId);
             return argument;
         }).when(this.userCreateService).create(Mockito.any(UserEntity.class));
 
@@ -73,7 +75,8 @@ class UserControllerTest {
                 .accept(MediaType.APPLICATION_JSON);
 
         this.mockMvc.perform(requestBuilder)
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(generateUserId)));
 
         Mockito.verify(this.userCreateService).create(Mockito.any(UserEntity.class));
     }

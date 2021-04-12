@@ -1,7 +1,10 @@
 package hk.qingke.learn.usermanager.adapter.api.rest;
 
+import hk.qingke.learn.usermanager.adapter.api.convert.UserEntityToVoConvert;
 import hk.qingke.learn.usermanager.adapter.api.convert.UserVoToEntityConvert;
 import hk.qingke.learn.usermanager.adapter.api.vo.request.CreateUserRequest;
+import hk.qingke.learn.usermanager.adapter.api.vo.response.CreateUserResponse;
+import hk.qingke.learn.usermanager.domain.UserEntity;
 import hk.qingke.learn.usermanager.service.UserCreateService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +21,9 @@ public class UserController {
     }
 
     @PostMapping
-    public void register(@RequestBody CreateUserRequest request) {
-        this.userCreateService.create(UserVoToEntityConvert.INSTANCE.requestToEntity(request));
+    public CreateUserResponse register(@RequestBody CreateUserRequest request) {
+        UserEntity userEntity = this.userCreateService.create(UserVoToEntityConvert.INSTANCE.requestToEntity(request));
+
+        return UserEntityToVoConvert.INSTANCE.entityToVo(userEntity);
     }
 }
