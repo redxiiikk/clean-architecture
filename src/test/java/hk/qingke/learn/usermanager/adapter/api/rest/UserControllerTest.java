@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hk.qingke.learn.usermanager.adapter.api.vo.request.CreateUserRequest;
 import hk.qingke.learn.usermanager.domain.UserEntity;
 import hk.qingke.learn.usermanager.service.UserCreateService;
+import hk.qingke.learn.usermanager.service.exception.UsernameDuplicateException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.hamcrest.Matchers;
@@ -16,11 +17,15 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.web.servlet.server.Encoding;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Locale;
 
 @Slf4j
 @WebMvcTest(controllers = UserController.class)
@@ -79,5 +84,42 @@ class UserControllerTest {
         .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(generateUserId)));
 
         Mockito.verify(this.userCreateService).create(Mockito.any(UserEntity.class));
+    }
+    @Test
+    void create_user_fail_when_throw_user_name_duplication_exception_given_simple_chinese() throws Exception {
+        Mockito.when(this.userCreateService.create(Mockito.any(UserEntity.class)))
+                .thenThrow(new UsernameDuplicateException());
+
+        CreateUserRequest requestBody = new CreateUserRequest("Tom", "1@aB2345678", "test@test.hk");
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/user")
+                .header(HttpHeaders.ACCEPT_LANGUAGE, Locale.SIMPLIFIED_CHINESE.toLanguageTag())
+                .header(HttpHeaders.ACCEPT_ENCODING, Encoding.DEFAULT_CHARSET)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(requestBody));
+
+        this.mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("用户名重复"));
+    }
+
+    @Test
+    void create_user_fail_when_throw_user_name_duplication_exception_given_en_us() throws Exception {
+        Mockito.when(this.userCreateService.create(Mockito.any(UserEntity.class)))
+                .thenThrow(new UsernameDuplicateException());
+
+        CreateUserRequest requestBody = new CreateUserRequest("Tom", "1@aB2345678", "test@test.hk");
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/user")
+                .header(HttpHeaders.ACCEPT_LANGUAGE, Locale.US.toLanguageTag())
+                .header(HttpHeaders.ACCEPT_ENCODING, Encoding.DEFAULT_CHARSET)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(requestBody));
+
+        this.mockMvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("Duplicate username"));
     }
 }

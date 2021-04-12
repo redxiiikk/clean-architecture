@@ -5,7 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ public class ExceptionHandlerAdvice {
         this.i18nMessage = i18nMessage;
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(AbstractCommonException.class)
     public String commonExceptionHandle(HttpServletRequest request, AbstractCommonException exception) {
 
