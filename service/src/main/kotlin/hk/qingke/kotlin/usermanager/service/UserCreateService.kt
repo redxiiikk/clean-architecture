@@ -8,13 +8,8 @@ import hk.qingke.kotlin.usermanager.service.exception.UsernameDuplicationExcepti
 class UserCreateService(private val userRepository: UserRepository) {
 
     fun create(userEntity: UserEntity): UserEntity {
-        if (this.userRepository.queryUserByUsername(userEntity.username) != null) {
-            throw UsernameDuplicationException()
-        }
-
-        if (this.userRepository.queryUserByEmail(userEntity.email) != null) {
-            throw EmailDuplicationException()
-        }
+        this.userRepository.queryUserByUsername(userEntity.username)?.run { throw UsernameDuplicationException() }
+        this.userRepository.queryUserByEmail(userEntity.email)?.run { throw EmailDuplicationException() }
 
         return this.userRepository.save(userEntity)
     }
