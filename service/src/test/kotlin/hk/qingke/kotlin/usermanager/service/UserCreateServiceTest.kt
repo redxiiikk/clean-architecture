@@ -7,7 +7,11 @@ import hk.qingke.kotlin.usermanager.service.exception.UsernameDuplicationExcepti
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.*
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.spy
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 internal class UserCreateServiceTest {
     private lateinit var userCreateService: UserCreateService
