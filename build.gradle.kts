@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.4.32"
+    kotlin("kapt") version "1.3.61"
 }
 
 group = "hk.qingke.user-manager"
